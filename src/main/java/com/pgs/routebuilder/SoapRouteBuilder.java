@@ -12,9 +12,9 @@ import com.pgs.schema.order.OrderInquiryResponseType;
 import com.pgs.schema.order.OrderInquiryType;
 import com.pgs.service.OrderService;
 
-@Component("soapRouteExample")
+@Component("soapRouteBuilder")
 @ImportResource(value = "classpath:META-INF/spring/camel-cxf.xml")
-public class SoapRouteExample extends RouteBuilder {
+public class SoapRouteBuilder extends RouteBuilder {
 
 	@Autowired
 	OrderService orderService;
@@ -30,7 +30,7 @@ public class SoapRouteExample extends RouteBuilder {
 
 				OrderInquiryResponseType response = orderService.processOrder(orderInquiry);
 
-				exchange.getIn().setBody(response);
+				exchange.getOut().setBody(response);
 			}
 		});
 	}

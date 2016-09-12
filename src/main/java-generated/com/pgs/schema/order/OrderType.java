@@ -1,6 +1,7 @@
 
 package com.pgs.schema.order;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,8 +35,11 @@ import javax.xml.bind.annotation.XmlType;
     "orderItems",
     "orderStatus"
 })
-public class OrderType {
+public class OrderType
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected List<OrderItemType> orderItems;
     @XmlElement(required = true)

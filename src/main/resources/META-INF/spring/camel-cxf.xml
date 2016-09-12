@@ -2,20 +2,25 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:camel="http://cxf.apache.org/transports/camel"
-	xmlns:spring="http://camel.apache.org/schema/spring"
-	xsi:schemaLocation="http://cxf.apache.org/transports/camel http://cxf.apache.org/transports/camel.xsd
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xsi:schemaLocation="http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+		http://cxf.apache.org/transports/camel http://cxf.apache.org/transports/camel.xsd
 		http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+		http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
-
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+		http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd">
+			
 	<context:component-scan base-package="com.pgs" />
 	
 	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
 	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+	<bean id="fualtOutInterceptor" class="org.apache.cxf.interceptor.FaultOutInterceptor" />
 
 	<!-- setting up a Camel CXF web-service -->
 	<cxf:cxfEndpoint id="orders" address="http://localhost:9000/order/"
@@ -27,9 +32,32 @@
 		<cxf:outInterceptors>
 			<ref bean="loggingOutInterceptor" />
 		</cxf:outInterceptors>		
-	</cxf:cxfEndpoint>		
+	</cxf:cxfEndpoint>	
+	
+	 <!-- <jaxrs:server id="restService" address="http://localhost:9090">
+        <jaxrs:serviceBeans>
+            <bean class="com.pgs.service.RestOrderService" />
+        </jaxrs:serviceBeans>
+       	<jaxrs:inInterceptors>
+       		<ref bean="loggingInInterceptor" />
+       		<ref bean="isPhaseOkInterceptor" />
+       	</jaxrs:inInterceptors>
+       	<jaxrs:inFaultInterceptors>
+       		<ref bean="isPhaseOkInterceptor" />
+       	</jaxrs:inFaultInterceptors>
+       	<jaxrs:outFaultInterceptors>
+       		<ref bean="fualtOutInterceptor" />
+       	</jaxrs:outFaultInterceptors>
+       	<jaxrs:outInterceptors>
+       		<ref bean="loggingOutInterceptor" />
+       	</jaxrs:outInterceptors>
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+        </jaxrs:providers>
+    </jaxrs:server>	 -->
 		
-	<camelContext xmlns="http://camel.apache.org/schema/spring">
-		<routeBuilder ref="soapRouteExample" />
-	</camelContext>
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">	
+		<camel:routeBuilder ref="soapRouteBuilder" /> 
+		<camel:routeBuilder ref="restRoutBuilder" />		
+	</camel:camelContext>
 </beans>

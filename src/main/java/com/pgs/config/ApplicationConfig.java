@@ -3,11 +3,13 @@ package com.pgs.config;
 import java.util.Arrays;
 
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
+import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 //
@@ -24,10 +26,10 @@ public class ApplicationConfig extends CamelConfiguration {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-	// @Bean(destroyMethod = "shutdown")
-	// public SpringBus cxf() {
-	// return new SpringBus();
-	// }
+	@Bean(destroyMethod = "shutdown")
+	public SpringBus cxf() {
+		return new SpringBus();
+	}
 
 	@Bean(name = DATA_FORMAT_JACKSON_CXF_PROVIDER_BEAN_ID)
 	public JacksonJsonProvider jsonProvider() {
@@ -35,13 +37,14 @@ public class ApplicationConfig extends CamelConfiguration {
 	}
 
 	@Bean(name = REST_BEAN_ID)
-	// @DependsOn("cxf")
-	public JAXRSServerFactoryBean rsServer(@Qualifier(DATA_FORMAT_JACKSON_CXF_PROVIDER_BEAN_ID) JacksonJsonProvider jacksonProvider, RestOrderService service
-	// ,SpringBus cxf
-	) {
+	@DependsOn("cxf")
+	public JAXRSServerFactoryBean rsServer(
+			@Qualifier(DATA_FORMAT_JACKSON_CXF_PROVIDER_BEAN_ID) JacksonJsonProvider jacksonProvider,
+			RestOrderService service,
+			SpringBus cxf) {
 		JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
 
-		// factory.setBus(cxf);
+		factory.setBus(cxf);
 		factory.setServiceBean(service);
 		factory.setAddress("http://localhost:9090/");
 		factory.setProviders(Arrays.<Object> asList(jacksonProvider));

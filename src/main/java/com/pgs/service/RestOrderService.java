@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Component;
 
 @Path("/service")
-@Component
+@Component("restOrderService")
 public class RestOrderService {
 
 	@POST

@@ -19,19 +19,20 @@ public class RestRoutBuilder extends RouteBuilder {
 		getContext().getProperties().put("CamelJacksonEnableTypeConverter", "true");
 		getContext().getProperties().put("CamelJacksonTypeConverterToPojo", "true");
 
-		from("cxfrs://http://localhost:9090?resourceClasses=com.pgs.service.RestOrderService&bindingStyle=SimpleConsumer")
-				.log("BODY BEFORE PROCESSING = ${body}").
-				// from("cxfrs:bean:" + ApplicationConfig.REST_BEAN_ID +
-				// "?&bindingStyle=SimpleConsumer").log("BODY BEFORE PROCESSING = ${body}").
+		// from("cxfrs://http://localhost:9090?resourceClasses=com.pgs.service.RestOrderService&bindingStyle=SimpleConsumer")
+		// .log("BODY BEFORE PROCESSING = ${body}").
+		// from("cxfrs:bean:" + ApplicationConfig.REST_BEAN_ID +
+		// "?&bindingStyle=SimpleConsumer").log("BODY BEFORE PROCESSING = ${body}").
+		from("cxfrs:bean:restService" + "?bindingStyle=SimpleConsumer").
 
-				process(new Processor() {
+		process(new Processor() {
 
-					@Override
-					public void process(Exchange exchange) throws Exception {
-						OrderInquiryType request = exchange.getIn().getBody(OrderInquiryType.class);
-						exchange.getOut().setBody(request);
-					}
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				OrderInquiryType request = exchange.getIn().getBody(OrderInquiryType.class);
+				exchange.getOut().setBody(request);
+			}
 
-				}).log("BODY AFTER PROCESSING = ${body}").inOut("cxf:bean:orders").marshal().json(JsonLibrary.Jackson, true);
+		}).log("BODY AFTER PROCESSING = ${body}").inOut("cxf:bean:orders").marshal().json(JsonLibrary.Jackson, true);
 	}
 }

@@ -34,28 +34,13 @@
 		</cxf:outInterceptors>		
 	</cxf:cxfEndpoint>	
 	
-	 <!-- <jaxrs:server id="restService" address="http://localhost:9090">
-        <jaxrs:serviceBeans>
-            <bean class="com.pgs.service.RestOrderService" />
-        </jaxrs:serviceBeans>
-       	<jaxrs:inInterceptors>
-       		<ref bean="loggingInInterceptor" />
-       		<ref bean="isPhaseOkInterceptor" />
-       	</jaxrs:inInterceptors>
-       	<jaxrs:inFaultInterceptors>
-       		<ref bean="isPhaseOkInterceptor" />
-       	</jaxrs:inFaultInterceptors>
-       	<jaxrs:outFaultInterceptors>
-       		<ref bean="fualtOutInterceptor" />
-       	</jaxrs:outFaultInterceptors>
-       	<jaxrs:outInterceptors>
-       		<ref bean="loggingOutInterceptor" />
-       	</jaxrs:outInterceptors>
-        <jaxrs:providers>
-            <bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
-        </jaxrs:providers>
-    </jaxrs:server>	 -->
-		
+	<!-- rest endpoint -->
+	<cxf:rsServer id="restService" address="http://localhost:9090">
+		<cxf:serviceBeans>
+			<ref bean="restOrderService" />
+		</cxf:serviceBeans>		
+	</cxf:rsServer>
+		 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">	
 		<camel:routeBuilder ref="soapRouteBuilder" /> 
 		<camel:routeBuilder ref="restRoutBuilder" />		

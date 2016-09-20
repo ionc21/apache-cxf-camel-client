@@ -21,6 +21,8 @@
 	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
 	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 	<bean id="fualtOutInterceptor" class="org.apache.cxf.interceptor.FaultOutInterceptor" />
+	
+	<bean id="jsonDataProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
 
 	<!-- setting up a Camel CXF web-service -->
 	<cxf:cxfEndpoint id="orders" address="http://localhost:9000/order/"
@@ -32,6 +34,9 @@
 		<cxf:outInterceptors>
 			<ref bean="loggingOutInterceptor" />
 		</cxf:outInterceptors>		
+		 <cxf:dataBinding>
+		     <bean class="org.apache.cxf.jaxb.JAXBDataBinding" />
+		 </cxf:dataBinding>
 	</cxf:cxfEndpoint>	
 	
 	<!-- rest endpoint -->
@@ -39,6 +44,9 @@
 		<cxf:serviceBeans>
 			<ref bean="restOrderService" />
 		</cxf:serviceBeans>		
+		<cxf:providers>
+			<ref bean="jsonDataProvider"/>
+		</cxf:providers>
 	</cxf:rsServer>
 		 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">	

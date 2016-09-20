@@ -3,7 +3,6 @@ package com.pgs.routebuilder;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.cxf.message.MessageContentsList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
@@ -25,11 +24,8 @@ public class SoapRouteBuilder extends RouteBuilder {
 
 			@Override
 			public void process(Exchange exchange) throws Exception {
-				MessageContentsList message = (MessageContentsList) exchange.getIn().getBody();
-				OrderInquiryType orderInquiry = (OrderInquiryType) message.get(0);
-
+				OrderInquiryType orderInquiry = exchange.getIn().getBody(OrderInquiryType.class);
 				OrderInquiryResponseType response = orderService.processOrder(orderInquiry);
-
 				exchange.getOut().setBody(response);
 			}
 		});

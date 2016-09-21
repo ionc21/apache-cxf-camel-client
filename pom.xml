@@ -46,6 +46,12 @@
         </dependency>
         
         <dependency>
+		  <groupId>org.apache.camel</groupId>
+		  <artifactId>camel-jaxb</artifactId>
+		  <version>${camel-version}</version>
+		</dependency>
+			        
+        <dependency>
 		    <groupId>org.apache.camel</groupId>
 		    <artifactId>camel-xmljson</artifactId>
 		    <version>${camel-version}</version>
@@ -55,12 +61,7 @@
     		<artifactId>camel-spring-javaconfig</artifactId>
 			<version>${camel-version}</version>
     	</dependency>
-    	<!-- <dependency>
-		  <groupId>org.apache.camel</groupId>
-		  <artifactId>camel-soap</artifactId>
-		  <version>${camel-version}</version>
-		</dependency> -->
-						
+   						
 		<!-- using Jetty with CXF -->
 	    <dependency>
 	      <groupId>org.apache.cxf</groupId>
@@ -113,7 +114,7 @@
 		    <version>1.9.13</version>
 		</dependency> -->
 		
-	<!-- 	<dependency>
+		<!-- <dependency>
 		  <groupId>org.apache.camel</groupId>
 		  <artifactId>camel-jacksonxml</artifactId>
 		  <version>${camel-version}</version>		  

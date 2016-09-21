@@ -8,6 +8,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
 
+import com.pgs.schema.order.OrderInquiryResponseType;
+import com.pgs.schema.order.OrderInquiryType;
+
 @Path("/service")
 @Component("restOrderService")
 public class RestOrderService {
@@ -16,7 +19,7 @@ public class RestOrderService {
 	@Path("/processOrders")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String processOrders(String orderRequest) {
+	public OrderInquiryResponseType processOrders(OrderInquiryType orderRequest) {
 		return null;
 	}
 }

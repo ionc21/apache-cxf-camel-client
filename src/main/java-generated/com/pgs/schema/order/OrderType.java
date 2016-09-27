@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="orderItems" type="{http://www.pgs.com/schema/Order}OrderItemType" maxOccurs="unbounded"/&gt;
- *         &lt;element name="orderStatus" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="orderStatus" type="{http://www.pgs.com/schema/Order}OrderStatusType"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -43,7 +44,8 @@ public class OrderType
     @XmlElement(required = true)
     protected List<OrderItemType> orderItems;
     @XmlElement(required = true)
-    protected String orderStatus;
+    @XmlSchemaType(name = "string")
+    protected OrderStatusType orderStatus;
 
     /**
      * Gets the value of the orderItems property.
@@ -79,10 +81,10 @@ public class OrderType
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link OrderStatusType }
      *     
      */
-    public String getOrderStatus() {
+    public OrderStatusType getOrderStatus() {
         return orderStatus;
     }
 
@@ -91,10 +93,10 @@ public class OrderType
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link OrderStatusType }
      *     
      */
-    public void setOrderStatus(String value) {
+    public void setOrderStatus(OrderStatusType value) {
         this.orderStatus = value;
     }
 

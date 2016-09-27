@@ -193,7 +193,7 @@
 							<sourceRoot>src/main/java-generated</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl>http://localhost:8080/apache-cxf-jaxws-server/services/orders?wsdl</wsdl>									
+									<wsdl>${basedir}/src/main/resources/wsdl/Orders.wsdl</wsdl>									
 									<bindingFiles>
 										<bindingFile>${basedir}/src/main/resources/binding.xml</bindingFile>
 									</bindingFiles>

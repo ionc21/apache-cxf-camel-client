@@ -27,7 +27,7 @@
 	<!-- setting up a Camel CXF web-service -->
 	<cxf:cxfEndpoint id="orders" address="http://localhost:9000/order/"
 		serviceClass="com.pgs.service.orders.Orders"
-		wsdlURL="http://localhost:8080/apache-cxf-jaxws-server/services/orders?wsdl">
+		wsdlURL="classpath:/wsdl/Orders.wsdl">
 		<cxf:inInterceptors>
 			<ref bean="loggingInInterceptor" />
 		</cxf:inInterceptors>

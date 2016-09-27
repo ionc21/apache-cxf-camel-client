@@ -15,6 +15,7 @@ import com.pgs.schema.order.ObjectFactory;
 import com.pgs.schema.order.OrderInquiryResponseType;
 import com.pgs.schema.order.OrderInquiryType;
 import com.pgs.schema.order.OrderItemType;
+import com.pgs.schema.order.OrderStatusType;
 import com.pgs.schema.order.OrderType;
 
 @Service("orderService")
@@ -45,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 		orderItem.setQuantityShipped(inquiry.getOrderQuantity());
 
 		OrderType order = factory.createOrderType();
-		order.setOrderStatus("READY");
+		order.setOrderStatus(OrderStatusType.READY);
 		order.getOrderItems().add(orderItem);
 		response.setOrder(order);
 		return response;

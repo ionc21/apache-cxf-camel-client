@@ -51,19 +51,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OrderType }
+     * Create an instance of {@link AccountType }
      * 
      */
-    public OrderType createOrderType() {
-        return new OrderType();
-    }
-
-    /**
-     * Create an instance of {@link OrderItemType }
-     * 
-     */
-    public OrderItemType createOrderItemType() {
-        return new OrderItemType();
+    public AccountType createAccountType() {
+        return new AccountType();
     }
 
     /**
@@ -75,11 +67,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AccountType }
+     * Create an instance of {@link OrderItemType }
      * 
      */
-    public AccountType createAccountType() {
-        return new AccountType();
+    public OrderItemType createOrderItemType() {
+        return new OrderItemType();
+    }
+
+    /**
+     * Create an instance of {@link OrderType }
+     * 
+     */
+    public OrderType createOrderType() {
+        return new OrderType();
     }
 
     /**

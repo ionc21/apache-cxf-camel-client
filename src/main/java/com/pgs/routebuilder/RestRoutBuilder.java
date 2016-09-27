@@ -18,9 +18,6 @@ public class RestRoutBuilder extends RouteBuilder {
 		// getContext().getProperties().put("CamelJacksonTypeConverterToPojo", "true");
 
 		/* more compex way to convert rest to soap and vice versa */
-		// from("cxfrs://http://localhost:9090?resourceClasses=com.pgs.service.RestOrderService&bindingStyle=SimpleConsumer").
-		// .log("BODY BEFORE PROCESSING = ${body}").
-		// from("cxfrs:bean:" + ApplicationConfig.REST_BEAN_ID + "?bindingStyle=SimpleConsumer").log("BODY BEFORE PROCESSING = ${body}").
 		// from("cxfrs:bean:restService" + "?bindingStyle=SimpleConsumer").
 		//
 		// process(new Processor() {
